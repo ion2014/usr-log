@@ -1,1 +1,6 @@
-theme: jekyll-theme-cayman
+gem:
+  jekyll-seo-tag
+description: 
+  usr-log
+author: 
+  usr-log
