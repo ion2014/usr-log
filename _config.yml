@@ -4,3 +4,7 @@ description:
   usr-log
 author: 
   usr-log
+image:
+  path: https://ion2014.github.io/usr-log/img/preview.jpg
+  width:  100
+  height: 100
