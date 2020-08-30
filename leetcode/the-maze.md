@@ -8,7 +8,7 @@ TL;DR:
 - Use heapq instead of PriorityQueue for leetcode
 
 TODO:
-- [] The Maze III
+- [ ] The Maze III
 
 ## The maze I
 Pretty straightforward solution
