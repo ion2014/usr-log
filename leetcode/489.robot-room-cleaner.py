@@ -36,38 +36,35 @@
 #        Clean the current cell.
 #        :rtype void
 #        """
-
 class Solution:
-    def changeToFacing(self, targetFacing):
-        while self.facing != targetFacing:
-            self.robot.turnRight()
-            self.facing = (self.facing + 1) % 4
-
     def cleanRoom(self, robot):
         """
         :type robot: Robot
         :rtype: None
         """
-        self.robot = robot
-        self.facing = 0
-        self.visited = set()
-        self.dir = [
-            (0, -1, 0, 2), (1, 0, 1, 3), (2, 1, 0, 0), (3, 0, -1, 1), 
-            (0, -1, 0, 2), (1, 0, 1, 3), (2, 1, 0, 0), (3, 0, -1, 1)
-        ]
-        self.solve(0, 0)
+        facing = 0
+        visited = set()
+        dir = [(0, -1, 0, 2), (1, 0, 1, 3), (2, 1, 0, 0), (3, 0, -1, 1)]
+        
+        def changeToFacing(targetFacing):
+            nonlocal facing
+            while facing != targetFacing:
+                robot.turnRight()
+                facing = (facing + 1) % 4
+        
+        def solve(X, Y):
+            robot.clean()
+            visited.add((X, Y))
 
-    def solve(self, X, Y):
-        self.robot.clean()
-        self.visited.add((X, Y))
+            # Explore
+            for d in dir:
+                if (X + d[1], Y + d[2]) not in visited:
+                    changeToFacing(d[0])
+                    if robot.move():
+                        solve(X + d[1], Y + d[2])
+                        changeToFacing(d[3])
+                        robot.move()  
 
-        # Explore
-        for d in self.dir[self.facing: self.facing + 4]:
-            if (X + d[1], Y + d[2]) not in self.visited:
-                self.changeToFacing(d[0])
-                if self.robot.move():
-                    self.solve(X + d[1], Y + d[2])
-                    self.changeToFacing(d[3])
-                    self.robot.move()
+        solve(0, 0)
 
 # @lc code=end
